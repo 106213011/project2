@@ -29,8 +29,8 @@
             <input type="text" id="lastname" name="lastname" maxlength="20" size="20" required="required" pattern="^[A-Za-z ]{1,20}$" title="Alpha characters only">
         </p>
 
-        <p><label for="date"> Date of Birth:  </label>
-            <input type="date" name="date" id="date" placeholder="dd-mm-yyyy" required>
+        <p><label for="dob"> Date of Birth:  </label>
+            <input type="date" id="dob" name="dob" placeholder="dd-mm-yyyy" required>
         </p>
 
         <fieldset>
