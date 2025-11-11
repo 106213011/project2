@@ -32,7 +32,7 @@ CREATE TABLE `eoi` (
   `JobReferenceNumber` varchar(10) NOT NULL,
   `FirstName` varchar(20) NOT NULL,
   `LastName` varchar(20) NOT NULL,
-  `DOB` date(10) NOT NULL,
+  `DOB` date NOT NULL,
   `Gender` varchar(10) NOT NULL,
   `StreetAddress` varchar(40) DEFAULT NULL,
   `SuburbTown` varchar(40) DEFAULT NULL,
