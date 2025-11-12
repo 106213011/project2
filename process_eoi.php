@@ -56,16 +56,77 @@ if (!preg_match("/^[A-Za-z ]{1,20}$/", $lastname)) {
     $errors[] = "Invalid last name (max 20 alpha characters).";
 }
 
-if (!preg_match("/^\d{4}$/", $postcode)) {
-    $errors[] = "Invalid postcode (must be exactly 4 digits).";
+#if (!preg_match("/^(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[0-2])[\/](19|20)\d\d$/", $dob)) {
+#    $errors[] = "Invalid date of birth format. Please use dd/mm/yyyy.";
+#}
+
+if (empty($dob)) {
+    $errors[] = "Please enter your date of birth.";
+} else {
+    // Convert from input type="date" (YYYY-MM-DD)
+    $dob_date = DateTime::createFromFormat('Y-m-d', $dob);
+    
+    if (!$dob_date) {
+        $errors[] = "Invalid date format. Please use the calendar input.";
+    } else {
+        $today = new DateTime();
+        $age = $today->diff($dob_date)->y;
+
+        if ($age < 18) {
+            $errors[] = "You must be at least 18 years old to apply.";
+        }
+    }
 }
 
-if (!preg_match("/^[0-9 ]{8,12}$/", $phonenumber)) {
-    $errors[] = "Invalid phone number (8-12 digits or spaces allowed).";
+if (empty($gender)) {
+    $errors[] = "Please select a gender.";
+}
+
+if (strlen($streetaddress) == 0 || strlen($streetaddress) > 40) {
+    $errors[] = "Street address must be between 1 and 40 characters.";
+}
+
+if (strlen($suburbtown) == 0 || strlen($suburbtown) > 40) {
+    $errors[] = "Suburb/town must be between 1 and 40 characters.";
+}
+
+// ✅ State validation (must match allowed options)
+$valid_states = ["VIC", "NSW", "QLD", "NT", "WA", "SA", "TAS", "ACT"];
+if (!in_array($state, $valid_states)) {
+    $errors[] = "Invalid state selection.";
+}
+
+// ✅ Postcode validation (exactly 4 digits + matches state)
+if (!preg_match("/^\d{4}$/", $postcode)) {
+    $errors[] = "Postcode must be exactly 4 digits.";
+} else {
+    $pc = (int)$postcode;
+    switch ($state) {
+        case "VIC": if ($pc < 3000 || $pc > 3999) $errors[] = "VIC postcodes range from 3000 to 3999."; break;
+        case "NSW": if ($pc < 1000 || $pc > 2599) $errors[] = "NSW postcodes range from 1000 to 2599."; break;
+        case "QLD": if ($pc < 4000 || $pc > 4999) $errors[] = "QLD postcodes range from 4000 to 4999."; break;
+        case "NT":  if ($pc < 800 || $pc > 999)  $errors[] = "NT postcodes range from 0800 to 0999."; break;
+        case "WA":  if ($pc < 6000 || $pc > 6999) $errors[] = "WA postcodes range from 6000 to 6999."; break;
+        case "SA":  if ($pc < 5000 || $pc > 5799) $errors[] = "SA postcodes range from 5000 to 5799."; break;
+        case "TAS": if ($pc < 7000 || $pc > 7999) $errors[] = "TAS postcodes range from 7000 to 7999."; break;
+        case "ACT": if ($pc < 2600 || $pc > 2999) $errors[] = "ACT postcodes range from 2600 to 2999."; break;
+    }
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errors[] = "Invalid email format.";
+}
+
+if (!preg_match("/^[0-9 ]{8,12}$/", $phonenumber)) {
+    $errors[] = "Invalid phone number (must be 8–12 digits or spaces).";
+}
+
+if (empty($skills)) {
+    $errors[] = "Please select at least one technical skill.";
+}
+
+if (isset($_POST['otherskills']) && empty($otherskillsText)) {
+    $errors[] = "Please describe your other skills.";
 }
 
 if (count($errors) > 0) {
