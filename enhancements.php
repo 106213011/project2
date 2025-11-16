@@ -9,8 +9,13 @@
     $conn = mysqli_connect("localhost", "root", "", "group_2");
     if (!$conn) die("Connection failed: " . mysqli_connect_error());
 
-    $validSort = ["firstname", "lastname", "jobref", "date_applied"];
-    $sortField = "firstname";
+    $validSort = [
+        "EOInumber", "JobReferenceNumber", "FirstName", "LastName",
+        "DOB", "Gender", "StreetAddress", "SuburbTown", "State",
+        "Postcode", "Email", "PhoneNumber", "Skills", "OtherSkills", "Status"
+    ];
+
+    $sortField = "EOInumber";
 
     if (isset($_POST["sort"]) && in_array($_POST["sort"], $validSort)) {
         $sortField = $_POST["sort"];
@@ -81,41 +86,77 @@
 
     <!-- SORTING FEATURE -->
     <section>
-        <h3>1. Sort EOI Records</h3>
+        <h3 id = "enhancements">1. Sort EOI Records</h3>
 
         <form method="post">
             <p><label for="sort"> Sort by: </label>
                 <select name="sort" id="sort">
-                    <option value="firstname">First Name</option>
-                    <option value="lastname">Last Name</option>
-                    <option value="jobref">Job Reference</option>
-                    <option value="date_applied">Date Applied</option>
+                    <option value="EOInumber">EOI Number</option>
+                    <option value="JobReferenceNumber">Job Reference Number</option>
+                    <option value="FirstName">First Name</option>
+                    <option value="LastName">Last Name</option>
+                    <option value="DOB">Date of Birth</option>
+                    <option value="Gender">Gender</option>
+                    <option value="StreetAddress">Street Address</option>
+                    <option value="SuburbTown">Suburb/Town</option>
+                    <option value="State">State</option>
+                    <option value="Postcode">Postcode</option>
+                    <option value="Email">Email</option>
+                    <option value="PhoneNumber">Phone Number</option>
+                    <option value="Skills">Skills</option>
+                    <option value="OtherSkills">Other Skills</option>
+                    <option value="Status">Status</option>
                 </select>
                 <input type="submit" value="Sort">
             </p>
         </form>
 
-        <table border="1" cellpadding="6">
+        <table id ="sort" border="1" cellpadding="6">
             <tr>
+                <th>EOI Number</th>
+                <th>Job Reference Number</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Job Ref</th>
-                <th>Date Applied</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Street Address</th>
+                <th>Suburb/Town</th>
+                <th>State</th>
+                <th>Postcode</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Skills</th>
+                <th>Other Skills</th>
+                <th>Status</th>
             </tr>
             <?php while ($row = mysqli_fetch_assoc($eoiResult)) : ?>
                 <tr>
-                    <td><?= $row["firstname"]; ?></td>
-                    <td><?= $row["lastname"]; ?></td>
-                    <td><?= $row["jobref"]; ?></td>
-                    <td><?= $row["date_applied"]; ?></td>
+                    <td><?= $row["EOInumber"]; ?></td>
+                    <td><?= $row["JobReferenceNumber"]; ?></td>
+                    <td><?= $row["FirstName"]; ?></td>
+                    <td><?= $row["LastName"]; ?></td>
+                    <td><?= $row["DOB"]; ?></td>
+                    <td><?= $row["Gender"]; ?></td>
+                    <td><?= $row["StreetAddress"]; ?></td>
+                    <td><?= $row["SuburbTown"]; ?></td>
+                    <td><?= $row["State"]; ?></td>
+                    <td><?= $row["Postcode"]; ?></td>
+                    <td><?= $row["Email"]; ?></td>
+                    <td><?= $row["PhoneNumber"]; ?></td>
+                    <td><?= $row["Skills"]; ?></td>
+                    <td><?= $row["OtherSkills"]; ?></td>
+                    <td><?= $row["Status"]; ?></td>
                 </tr>
             <?php endwhile; ?>
         </table>
     </section>
+    <br>
+
+    <hr>
 
     <!-- REGISTRATION -->
     <section>
-        <h3> Manager Registration</h3>
+        <h3 id = "enhancements"> 2. Manager Registration</h3>
 
         <form method="post">
             <p><label for="new_username">Username: </label>
@@ -130,9 +171,11 @@
         <p><strong><?= $regMessage ?></strong></p>
     </section>
 
+    <hr>
+
     <!-- LOGIN + LOCKOUT -->
     <section>
-        <h3>Manager Login </h3>
+        <h3 id = "enhancements" > 3. Manager Login </h3>
 
         <form method="post">
             <p><label for="username">Username: </label>

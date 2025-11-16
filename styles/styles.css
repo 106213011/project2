@@ -546,3 +546,12 @@ figure img {
   font-weight: bold;
   color: #1a73bc;
 }
+
+#sort {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#enhancements {
+    text-align: center;
+}
