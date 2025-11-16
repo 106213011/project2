@@ -79,12 +79,12 @@
 
         <h3> Skills </h3>
         <p><label for="requiredtechnical"> Required Technical List: </label><br>
-            <label><input type="checkbox" name="req1"> Degree in Cybersecurity/CS/related</label><br>
-            <label><input type="checkbox" name="req2"> 3-5 yrs Security Eng/IR/SecOps</label><br>
-            <label><input type="checkbox" name="req3"> Knowledge: Firewalls, IDS/IPS, TCP/IP, monitoring</label><br>
-            <label><input type="checkbox" name="req4"> Degree in CS/Networking/IT/related</label><br>
-            <label><input type="checkbox" name="req5"> 2+ yrs Network Administration</label><br>
-            <label><input type="checkbox" name="req6"> Knowledge: Cabling, routers, switches, security tools</label><br>
+            <label><input type="checkbox" name="req1" value="Degree in Cybersecurity/CS/related"> Degree in Cybersecurity/CS/related</label><br>
+            <label><input type="checkbox" name="req2" value="3-5 yrs Security Eng/IR/SecOps"> 3-5 yrs Security Eng/IR/SecOps</label><br>
+            <label><input type="checkbox" name="req3" value="Firewalls, IDS/IPS, TCP/IP, monitoring"> Knowledge: Firewalls, IDS/IPS, TCP/IP, monitoring</label><br>
+            <label><input type="checkbox" name="req4" value="Degree in CS/Networking/IT"> Degree in CS/Networking/IT/related</label><br>
+            <label><input type="checkbox" name="req5" value="2+ yrs Network Administration"> 2+ yrs Network Administration</label><br>
+            <label><input type="checkbox" name="req6" value="Cabling, routers, switches, security tools"> Knowledge: Cabling, routers, switches, security tools</label><br>
         </p>
 
         <p>

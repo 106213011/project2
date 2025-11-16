@@ -33,31 +33,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $eoi_id = mysqli_real_escape_string($conn, $_POST['eoi_id']);
         $new_status = mysqli_real_escape_string($conn, $_POST['status']);
         $sql = "UPDATE eoi SET Status='$new_status' WHERE EOInumber='$eoi_id'";
-        mysqli_query($conn, $sql);
-        $message = "Status of EOI ID <strong>$eoi_id</strong> updated to <strong>$new_status</strong>.";
+        if (mysqli_query($conn, $sql)) {
+            $message = "Status of EOI ID <strong>$eoi_id</strong> updated to <strong>$new_status</strong>.";
+        } else {
+            $message = "Error updating status: " . mysqli_error($conn);
+        }
     }
 }
 
 // -------------------- SEARCH LOGIC --------------------
-$where_clause = "1";
+$where_clause = "1"; // default: show all
 
-if (!empty($_GET['JobReferenceNumber'])) {
-    $job_ref = mysqli_real_escape_string($conn, $_GET['JobReferenceNumber']);
-    $where_clause = "JobReferenceNumber='$job_ref'";
-}
-elseif (!empty($_GET['first_name']) || !empty($_GET['last_name'])) {
-    $conditions = [];
-
-    if (!empty($_GET['first_name'])) {
-        $first = mysqli_real_escape_string($conn, $_GET['first_name']);
-        $conditions[] = "FirstName='$first'";
-    }
-    if (!empty($_GET['last_name'])) {
-        $last = mysqli_real_escape_string($conn, $_GET['last_name']);
-        $conditions[] = "LastName='$last'";
-    }
-
-    $where_clause = implode(" AND ", $conditions);
+if (isset($_GET['clear_search'])) {
+    $where_clause = "1"; 
+} elseif (!empty($_GET['search_type']) && !empty($_GET['search_value'])) {
+    $type = mysqli_real_escape_string($conn, $_GET['search_type']);
+    $value = mysqli_real_escape_string($conn, $_GET['search_value']);
+    $where_clause = "$type LIKE '%$value%'";
 }
 
 $sql = "SELECT * FROM eoi WHERE $where_clause";
@@ -68,59 +60,60 @@ $result = mysqli_query($conn, $sql);
 <html lang="en">
 <body>
 
-<header class="hero">
-    <img src="images/ALIMSON-LOGO.png" alt="Website Logo" class="logo">
-    <h1 id="logo">EOI Manager</h1>
-    <p>Manage, search, update and delete job applications.</p>
-</header>
-
 <?php include 'nav.inc'; ?>
-
+<head>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
 <div class="container">
 
     <?php if ($message != ""): ?>
         <p style="color: green; font-weight: bold;"><?= $message ?></p>
     <?php endif; ?>
 
-    <h2>Search EOIs</h2>
-    <form method="GET">
-        <p><label>Job Reference:
-            <input type="text" name="JobReferenceNumber">
-        </label></p>
-        <button type="submit">Search</button>
-    </form>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <!-- SEARCH FORM -->
+        <form method="GET" style="flex: 1; min-width: 250px; border: 1px solid #ccc; padding: 10px;">
+            <h3>Search EOIs</h3>
+            <label for="search_type">Search by:</label>
+            <select id="search_type" name="search_type">
+                <option value="JobReferenceNumber">Job Reference</option>
+                <option value="FirstName">First Name</option>
+                <option value="LastName">Last Name</option>
+            </select>
 
-    <form method="GET">
-        <p><label>First Name:
-            <input type="text" name="first_name">
-        </label></p>
+            <input type="text" name="search_value" placeholder="Enter search term">
+            <button type="submit">Search</button>
+            <button type="submit" name="clear_search" value="1">Clear Search</button>
+        </form>
 
-        <p><label>Last Name:
-            <input type="text" name="last_name">
-        </label></p>
-        <button type="submit">Search</button>
-    </form>
+        <!-- DELETE FORM -->
+        <form method="POST" style="flex: 1; min-width: 250px; border: 1px solid #ccc; padding: 10px;">
+            <h3>Delete EOI</h3>
+            <label>Job Reference to delete:
+                <input type="text" name="job_ref" required>
+            </label>
+            <br><br>
+            <button type="submit" name="delete_jobref">Delete</button>
+        </form>
 
-    <h2>Delete EOIs</h2>
-    <form method="POST">
-        <p><label>Job Reference to delete:
-            <input type="text" name="job_ref" required>
-        </label></p>
-        <button type="submit" name="delete_jobref">Delete</button>
-    </form>
-
-    <h2>Update EOI Status</h2>
-    <form method="POST">
-        <p><label>EOI ID:
-            <input type="text" name="eoi_id" required>
-        </label></p>
-
-        <p><label>New Status:
-            <input type="text" name="status" required>
-        </label></p>
-
-        <button type="submit" name="update_status">Update Status</button>
-    </form>
+        <!-- UPDATE STATUS FORM -->
+        <form method="POST" style="flex: 1; min-width: 250px; border: 1px solid #ccc; padding: 10px;">
+            <h3>Update EOI Status</h3>
+            <label>EOI ID:
+                <input type="text" name="eoi_id" required>
+            </label>
+            <br><br>
+            <label>New Status:
+                <select name="status" required>
+                    <option value="New">New</option>
+                    <option value="Current">Current</option>
+                    <option value="Final">Final</option>
+                </select>
+            </label>
+            <br><br>
+            <button type="submit" name="update_status">Update Status</button>
+        </form>
+    </div>
 
     <h2>EOI List</h2>
 
