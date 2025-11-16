@@ -14,7 +14,10 @@
 session_start();
 
 // --- Database connection ---
-$conn = mysqli_connect("localhost", "root", "", "group_2");
+require_once("settings.php");
+
+$conn = mysqli_connect($host, $user, $pwd, $sql_db);
+
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
@@ -146,32 +149,6 @@ if (count($errors) > 0) {
     echo "<p><a href='apply.php'>Go back to the application form</a></p>";
     exit();
 }
-
-//-------------------------styling
-
-include 'header.inc';
-include 'nav.inc';
-
-echo '<main><section class="about-section" style="max-width:700px;">';
-
-if (count($errors) > 0) {
-
-    echo "<h2>Form Errors</h2><ul style='color:red; text-align:left;'>";
-
-    foreach ($errors as $error) {
-        echo "<li>$error</li>";
-    }
-
-    echo "</ul>";
-    echo "<a href='apply.php' class='btn'>Go Back to Application</a>";
-
-    echo "</section></main>";
-    include 'footer.inc';
-    exit();
-}
-
-//---------------------------------
-
 
 // --- CREATE TABLE IF NOT EXISTS (auto creation) ---
 $create_table_sql = "
