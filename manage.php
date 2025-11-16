@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+<?php include 'header.inc'; ?>
 <?php
 include 'settings.php';
 
@@ -56,7 +59,13 @@ elseif ((isset($_GET['first_name']) && !empty($_GET['first_name'])) ||
 $sql = "SELECT * FROM eoi WHERE $where_clause";
 $result = mysqli_query($conn, $sql);
 ?>
-
+<header class="hero">
+        <img src="images/ALIMSON-LOGO.png" alt="Website Logo" class="logo">
+        <h1 id="logo">Welcome to ALIMSON Tech</h1>
+        <p>Your trusted IT solutions provider for reliable, secure, and high-performance business technologies.</p>
+        <a href="jobs.php" class="btn">Join Our Team</a>
+    </header>
+    <?php include 'nav.inc'; ?>
 <h1>EOI Manager</h1>
 
 <h2>Search EOIs</h2>
@@ -107,6 +116,7 @@ $result = mysqli_query($conn, $sql);
     <?php endwhile; ?>
 </table>
 
+<?php include 'footer.inc'; ?>
 <?php
 mysqli_close($conn);
 ?>
