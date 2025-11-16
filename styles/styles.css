@@ -548,8 +548,23 @@ figure img {
 }
 
 #sort {
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+#sort th,
+#sort td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#sort th {
+    background-color: #f4f4f4;
+    font-weight: bold;
 }
 
 #enhancements {
