@@ -32,8 +32,8 @@
         $username = trim($_POST["new_username"]);
         $password = trim($_POST["new_password"]);
 
-        if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d).{8,}$/", $password)) {
-            $regMessage = "Password must be at least 8 characters and contain letters and numbers.";
+        if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d).{5,}$/", $password)) {
+            $regMessage = "Password must be at least 5 characters and contain letters and numbers.";
         } else {
             $check = mysqli_query($conn, "SELECT * FROM managers WHERE username='$username'");
             if (mysqli_num_rows($check) > 0) {
