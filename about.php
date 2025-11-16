@@ -121,7 +121,10 @@
       <div class="card">
         <h3>Saw Zhi Chen (Gibson)</h3>
         <p><strong>ID:</strong> 106212982 / J24042154</p>
+        <p><strong>Project 1:</strong></p>
         <p>Designed and structured the layout for both the home page and the about page.</p>
+        <p><strong>Project 2:</strong></p>
+        <p>Created manage and enhancements</p>
       </div>
     </div>
   </section>
@@ -155,3 +158,5 @@
   <?php include 'footer.inc'; ?>
 </body>
 </html>
+
+

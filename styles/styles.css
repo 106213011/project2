@@ -570,3 +570,49 @@ figure img {
 #enhancements {
     text-align: center;
 }
+/*-----manage*/
+.forms-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+/* Each form box */
+.forms-container form {
+    flex: 1;
+    min-width: 250px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+/* Form headings */
+.forms-container h3 {
+    margin-top: 0;
+}
+
+/* Input fields and select boxes */
+.forms-container input[type="text"],
+.forms-container select {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Buttons */
+.forms-container button {
+    padding: 7px 15px;
+    cursor: pointer;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 3px;
+}
+
+.forms-container button:hover {
+    background-color: #555;
+}
