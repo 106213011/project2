@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2025 at 04:48 PM
+-- Generation Time: Nov 16, 2025 at 05:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,25 +47,27 @@ CREATE TABLE `eoi` (
   `Status` enum('New','Current','Final') DEFAULT 'New'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `JobReferenceNumber` varchar(5) NOT NULL,
+  `JobTitle` varchar(100) NOT NULL,
+  `JobDescription` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `eoi`
+-- Indexes for table `jobs`
 --
-ALTER TABLE `eoi`
-  ADD PRIMARY KEY (`EOInumber`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `eoi`
---
-ALTER TABLE `eoi`
-  MODIFY `EOInumber` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`JobReferenceNumber`);
 COMMIT;
 
 CREATE TABLE managers (
