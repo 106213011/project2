@@ -116,12 +116,15 @@
         <p><strong>Project 1:</strong></p>
         <p>Managed the Jira workspace and designed and retrieved the content of the job application forms.</p>
         <p><strong>Project 2:</strong></p>
-        <p>Created the EOI table</p>
+        <p>Created the database the eoi table with the required information. Created a table named jobs in MySQL that stores job descriptions.</p>
       </div>
       <div class="card">
         <h3>Saw Zhi Chen (Gibson)</h3>
         <p><strong>ID:</strong> 106212982 / J24042154</p>
+        <p><strong>Project 1:</strong></p>
         <p>Designed and structured the layout for both the home page and the about page.</p>
+        <p><strong>Project 2:</strong></p>
+        <p>Created a webpage (manage.php) that allows a manager to make queries. Created the enhancements php</p>
       </div>
     </div>
   </section>
