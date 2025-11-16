@@ -104,13 +104,13 @@ if (strlen($suburbtown) == 0 || strlen($suburbtown) > 40) {
     $errors[] = "Suburb/town must be between 1 and 40 characters.";
 }
 
-// ✅ State validation (must match allowed options)
+// State validation
 $valid_states = ["VIC", "NSW", "QLD", "NT", "WA", "SA", "TAS", "ACT"];
 if (!in_array($state, $valid_states)) {
     $errors[] = "Invalid state selection.";
 }
 
-// ✅ Postcode validation (exactly 4 digits + matches state)
+// Postcode validation (exactly 4 digits + matches state)
 if (!preg_match("/^\d{4}$/", $postcode)) {
     $errors[] = "Postcode must be exactly 4 digits.";
 } else {
