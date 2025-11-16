@@ -47,12 +47,15 @@ $otherskillsText        = sanitise($conn, $_POST['otherskillsText']);
 
 // --- Combine technical skills checkboxes ---
 $skills = [];
+
 for ($i = 1; $i <= 6; $i++) {
     if (isset($_POST["req$i"])) {
-        $skills[] = "req$i";
+        $skills[] = $_POST["req$i"];  
     }
 }
+
 $skills_text = implode(", ", $skills);
+
 if (!empty($otherskills)) {
     $skills_text .= (!empty($skills_text) ? ", " : "") . "Other: " . $otherskills;
 }
@@ -197,9 +200,9 @@ if (!mysqli_query($conn, $create_table_sql)) {
 
 // --- Insert form data into the database ---
 $insert_sql = "INSERT INTO eoi 
-(JobReferenceNumber, FirstName, LastName, DOB, Gender, StreetAddress, SuburbTown, State, Postcode, Email, PhoneNumber, OtherSkills, Status) 
+(JobReferenceNumber, FirstName, LastName, DOB, Gender, StreetAddress, SuburbTown, State, Postcode, Email, PhoneNumber, Skills, OtherSkills, Status) 
 VALUES 
-('$jobreferencenumber', '$firstname', '$lastname', '$dob', '$gender', '$streetaddress', '$suburbtown', '$state', '$postcode', '$email', '$phonenumber', '$otherskillsText', 'New')";
+('$jobreferencenumber', '$firstname', '$lastname', '$dob', '$gender', '$streetaddress', '$suburbtown', '$state', '$postcode', '$email', '$phonenumber', '$skills_text', '$otherskillsText', 'New')";
 
 if (mysqli_query($conn, $insert_sql)) {
     $eoi_id = mysqli_insert_id($conn); // get auto-generated EOInumber
