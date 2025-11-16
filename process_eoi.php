@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>EOI Submitted</title>
+</head>
+<body>
+<?php 
+    include 'header.inc';
+    echo '<main><section class="about-section" style="max-width:700px;">';
+?>
+
 <?php
 session_start();
 
@@ -24,7 +36,7 @@ $jobreferencenumber = sanitise($conn, $_POST['jobreferencenumber']);
 $firstname          = sanitise($conn, $_POST['firstname']);
 $lastname           = sanitise($conn, $_POST['lastname']);
 $dob                = sanitise($conn, $_POST['dob']);
-$gender             = sanitise($conn, $_POST['gender']);
+$gender             = isset($_POST['gender']) ? sanitise($conn, $_POST['gender']) : "";
 $streetaddress      = sanitise($conn, $_POST['street']);
 $suburbtown         = sanitise($conn, $_POST['suburb']);
 $state              = sanitise($conn, $_POST['state']);
@@ -55,10 +67,6 @@ if (!preg_match("/^[A-Za-z ]{1,20}$/", $firstname)) {
 if (!preg_match("/^[A-Za-z ]{1,20}$/", $lastname)) {
     $errors[] = "Invalid last name (max 20 alpha characters).";
 }
-
-#if (!preg_match("/^(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[0-2])[\/](19|20)\d\d$/", $dob)) {
-#    $errors[] = "Invalid date of birth format. Please use dd/mm/yyyy.";
-#}
 
 if (empty($dob)) {
     $errors[] = "Please enter your date of birth.";
@@ -125,7 +133,7 @@ if (empty($skills)) {
     $errors[] = "Please select at least one technical skill.";
 }
 
-if (isset($_POST['otherskills']) && empty($otherskillsText)) {
+if (isset($_POST['otherskillsCheckbox']) && empty($otherskillsText)) {
     $errors[] = "Please describe your other skills.";
 }
 
@@ -138,6 +146,32 @@ if (count($errors) > 0) {
     echo "<p><a href='apply.php'>Go back to the application form</a></p>";
     exit();
 }
+
+//-------------------------styling
+
+include 'header.inc';
+include 'nav.inc';
+
+echo '<main><section class="about-section" style="max-width:700px;">';
+
+if (count($errors) > 0) {
+
+    echo "<h2>Form Errors</h2><ul style='color:red; text-align:left;'>";
+
+    foreach ($errors as $error) {
+        echo "<li>$error</li>";
+    }
+
+    echo "</ul>";
+    echo "<a href='apply.php' class='btn'>Go Back to Application</a>";
+
+    echo "</section></main>";
+    include 'footer.inc';
+    exit();
+}
+
+//---------------------------------
+
 
 // --- CREATE TABLE IF NOT EXISTS (auto creation) ---
 $create_table_sql = "
@@ -179,3 +213,7 @@ if (mysqli_query($conn, $insert_sql)) {
 
 mysqli_close($conn);
 ?>
+
+<?php include 'footer.inc'; ?>
+</body>
+</html>
