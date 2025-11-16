@@ -108,6 +108,7 @@
                     <option value="Status">Status</option>
                 </select>
                 <input type="submit" value="Sort">
+                <br>
             </p>
         </form>
 
