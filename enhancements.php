@@ -191,8 +191,8 @@
         <p><strong><?= $loginMessage ?></strong></p>
 
         <?php if (isset($_SESSION["manager"])): ?>
-           <p>You are logged in as <strong><?= $_SESSION["manager"] ?></strong></p>
-          <p><a href="manage.php">Go to Manage Page</a></p>
+           <p class="mng-text">You are logged in as <strong><?= $_SESSION["manager"] ?></strong></p>
+          <p class="mng-container"><a href="manage.php" class="manage-link">Go to Manage Page</a></p>
         <?php endif; ?>
     </section>
 

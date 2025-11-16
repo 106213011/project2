@@ -616,3 +616,27 @@ figure img {
 .forms-container button:hover {
     background-color: #555;
 }
+
+.manage-link {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff !important;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.manage-link:hover {
+    background-color: #0056b3;
+}
+
+.mng-container {
+    text-align: center;
+}
+
+.mng-text {
+    text-align: center; 
+}
